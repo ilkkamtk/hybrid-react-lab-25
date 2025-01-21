@@ -15,8 +15,21 @@ const SingleView = (props: {
     <dialog open>
       {item && (
         <>
-          <h3>item.title</h3>
-          <img src={item.filename} alt={item.title} />
+          <button
+            onClick={() => {
+              setSelectedItem(undefined);
+            }}
+          >
+            Close
+          </button>
+          <h3>{item.title}</h3>
+          <p>{new Date(item.created_at).toLocaleString('fi-FI')}</p>
+          {item.media_type.includes('image') ? (
+            <img src={item.filename} alt={item.title} />
+          ) : (
+            <video src={item.filename} controls />
+          )}
+          <p>{item.description}</p>
         </>
       )}
     </dialog>
