@@ -12,7 +12,14 @@ const SingleView = (props: {
     // - use item prop to render the media item details
     // - use img tag for displaying images
     // - use video tag for displaying videos
-    <dialog open>{item && <img src={item.filename} alt={item.title} />}</dialog>
+    <dialog open>
+      {item && (
+        <>
+          <h3>item.title</h3>
+          <img src={item.filename} alt={item.title} />
+        </>
+      )}
+    </dialog>
   );
 };
 export default SingleView;
