@@ -17,7 +17,7 @@ const Single = () => {
       )}
       <p>{item.description}</p>
       <p>Type: {item.media_type}</p>
-      <p>Size: {Math.round(item.filesize/1024)} kB</p>
+      <p>Size: {Math.round(item.filesize / 1024)} kB</p>
       <button
         onClick={() => {
           navigate(-1);
