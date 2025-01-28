@@ -33,12 +33,14 @@ const Home = () => {
               username: owner.username,
             };
 
+            /* tän voi poistaa, koska sain bäkin korjattua, nyt sieltä tulee string[] eikä string, päivitä tyypit npm:llä
             if (
               mediaItem.screenshots &&
               typeof mediaItem.screenshots === 'string'
             ) {
               mediaItem.screenshots = JSON.parse(mediaItem.screenshots);
             }
+            */
 
             return mediaItem;
           }),
