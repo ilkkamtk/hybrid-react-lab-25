@@ -37,11 +37,7 @@ const Home = () => {
               mediaItem.screenshots &&
               typeof mediaItem.screenshots === 'string'
             ) {
-              mediaItem.screenshots = JSON.parse(mediaItem.screenshots).map(
-                (screenshot: string) => {
-                  return import.meta.env.VITE_FILE_URL + screenshot;
-                },
-              );
+              mediaItem.screenshots = JSON.parse(mediaItem.screenshots);
             }
 
             return mediaItem;
