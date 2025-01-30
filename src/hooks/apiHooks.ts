@@ -6,7 +6,7 @@ import {
 import {useEffect, useState} from 'react';
 import {fetchData} from '../lib/functions';
 import {Credentials} from '../types/LocalTypes';
-import {LoginResponse} from 'hybrid-types/MessageTypes';
+import {LoginResponse, UserResponse} from 'hybrid-types/MessageTypes';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState<MediaItemWithOwner[]>([]);
@@ -69,6 +69,17 @@ const useAuthentication = () => {
 
 const useUser = () => {
   // TODO: implement auth/user server API connections here
+  const getUserByToken = async (token: string) => {
+    const options = {
+      headers: {Authorization: 'Bearer ' + token}
+    };
+    return await fetchData<UserResponse>(
+      import.meta.env.VITE_AUTH_API + '/users/token',
+      options,
+    );
+  };
+
+  return {getUserByToken};
 };
 
 const useComments = () => {
