@@ -1,6 +1,12 @@
-import {MediaItem, MediaItemWithOwner, UserWithNoPassword} from 'hybrid-types/DBTypes';
+import {
+  MediaItem,
+  MediaItemWithOwner,
+  UserWithNoPassword,
+} from 'hybrid-types/DBTypes';
 import {useEffect, useState} from 'react';
 import {fetchData} from '../lib/functions';
+import {Credentials} from '../types/LocalTypes';
+import {LoginResponse} from 'hybrid-types/MessageTypes';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState<MediaItemWithOwner[]>([]);
@@ -41,6 +47,26 @@ const useMedia = () => {
   return {mediaArray};
 };
 
+const useAuthentication = () => {
+  const postLogin = async (credentials: Credentials) => {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {'Content-Type': 'application/json'},
+    };
+    try {
+      return await fetchData<LoginResponse>(
+        import.meta.env.VITE_AUTH_API + '/auth/login',
+        options,
+      );
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  };
+
+  return {postLogin};
+};
+
 const useUser = () => {
   // TODO: implement auth/user server API connections here
 };
@@ -49,4 +75,4 @@ const useComments = () => {
   // TODO: implement media/comments resource API connections here
 };
 
-export {useMedia, useUser, useComments};
+export {useMedia, useAuthentication, useUser, useComments};
