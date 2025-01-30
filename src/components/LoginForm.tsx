@@ -35,11 +35,11 @@ const LoginForm = () => {
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="UserWithLevelname">Username</label>
+          <label htmlFor="loginusername">Username</label>
           <input
             name="username"
             type="text"
-            id="UserWithLevelname"
+            id="loginusername"
             onChange={handleInputChange}
             autoComplete="username"
             // value={inputs.username}

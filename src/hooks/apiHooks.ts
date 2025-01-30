@@ -5,7 +5,7 @@ import {
 } from 'hybrid-types/DBTypes';
 import {useEffect, useState} from 'react';
 import {fetchData} from '../lib/functions';
-import {Credentials} from '../types/LocalTypes';
+import {Credentials, RegisterCredentials} from '../types/LocalTypes';
 import {LoginResponse, UserResponse} from 'hybrid-types/MessageTypes';
 
 const useMedia = () => {
@@ -79,7 +79,23 @@ const useUser = () => {
     );
   };
 
-  return {getUserByToken};
+  const postRegister = async (credentials: RegisterCredentials) => {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {'Content-Type': 'application/json'},
+    };
+    try {
+      return await fetchData<UserResponse>(
+        import.meta.env.VITE_AUTH_API + '/users',
+        options,
+      );
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  };
+
+  return {getUserByToken, postRegister};
 };
 
 const useComments = () => {
