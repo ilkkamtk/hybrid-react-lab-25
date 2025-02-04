@@ -62,14 +62,9 @@ const UserProvider = ({children}: {children: React.ReactNode}) => {
       const userResponse: UserResponse = await getUserByToken(token);
       // TODO: set user to state
       setUser(userResponse.user);
-<<<<<<< HEAD
       // when page is refreshed, the user is redirected to origin (see ProtectedRoute.tsx)
       const origin = location.state.from.pathname || '/';
       navigate(origin);
-=======
-      // TODO: navigate to home
-      navigate('/');
->>>>>>> 19caf65003918d16bbb5dfa5571f0c7d89c8dad9
     } catch (e) {
       // alert('Token not valid');
       console.log((e as Error).message);
