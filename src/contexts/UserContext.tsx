@@ -2,7 +2,7 @@
 import React, {createContext, useState} from 'react';
 import {useAuthentication, useUser} from '../hooks/apiHooks';
 import {AuthContextType, Credentials} from '../types/LocalTypes';
-import {useNavigate} from 'react-router';
+import {useLocation, useNavigate} from 'react-router';
 import {UserWithNoPassword} from 'hybrid-types/DBTypes';
 import {UserResponse} from 'hybrid-types/MessageTypes';
 
@@ -13,6 +13,7 @@ const UserProvider = ({children}: {children: React.ReactNode}) => {
   const {postLogin} = useAuthentication();
   const {getUserByToken} = useUser();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // login, logout and autologin functions are here instead of components
   const handleLogin = async (credentials: Credentials) => {
@@ -61,8 +62,9 @@ const UserProvider = ({children}: {children: React.ReactNode}) => {
       const userResponse: UserResponse = await getUserByToken(token);
       // TODO: set user to state
       setUser(userResponse.user);
-      // TODO: navigate to home
-      navigate('/');
+      // when page is refreshed, the user is redirected to origin (see ProtectedRoute.tsx)
+      const origin = location.state.from.pathname || '/';
+      navigate(origin);
     } catch (e) {
       // alert('Token not valid');
       console.log((e as Error).message);
