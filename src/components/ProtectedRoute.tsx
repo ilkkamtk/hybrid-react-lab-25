@@ -9,6 +9,7 @@ const ProtectedRoute = ({children}: {children: React.ReactNode}) => {
   console.log('lokaatio', location);
 
   if (!user) {
+    // replace and state are used to redirect to origin when page is refreshed
     return <Navigate to="/" replace state={{from: location}} />;
   }
 
