@@ -37,9 +37,9 @@ const UserProvider = ({children}: {children: React.ReactNode}) => {
     try {
       // TODO: remove token from local storage
       // setItem
-      // localStorage.setItem('token', '');
+      localStorage.removeItem('token');
       // ...or clear
-      localStorage.clear();
+      // localStorage.clear();
       // TODO: set user to null
       setUser(null);
       // TODO: navigate to home
@@ -55,16 +55,16 @@ const UserProvider = ({children}: {children: React.ReactNode}) => {
       // TODO: get token from local storage
       const token = localStorage.getItem('token');
       // TODO: if token exists, get user data from API
-      if (token) {
-        const userResponse: UserResponse = await getUserByToken(token);
-        // TODO: set user to state
-        if (userResponse.user) {
-          setUser(userResponse.user);
-          // TODO: navigate to home
-          navigate('/');
-        }
+      if (!token) {
+        return;
       }
+      const userResponse: UserResponse = await getUserByToken(token);
+      // TODO: set user to state
+      setUser(userResponse.user);
+      // TODO: navigate to home
+      navigate('/');
     } catch (e) {
+      // alert('Token not valid');
       console.log((e as Error).message);
     }
   };

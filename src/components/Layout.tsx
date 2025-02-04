@@ -1,12 +1,15 @@
 import {Link, Outlet} from 'react-router';
 import {useUserContext} from '../hooks/ContextHooks';
+import {useEffect} from 'react';
 
 const Layout = () => {
   // jos käyttäjää ei ole, kutsu handleAutoLogin()
   const {user, handleAutoLogin} = useUserContext();
-  if (!user) {
-    handleAutoLogin();
-  }
+  useEffect(() => {
+    if (!user) {
+      handleAutoLogin();
+    }
+  }, []);
 
   return (
     <>
