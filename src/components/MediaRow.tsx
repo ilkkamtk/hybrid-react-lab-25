@@ -9,29 +9,27 @@ type MediaItemProps = {
 const MediaRow = (props: MediaItemProps) => {
   const {item} = props;
   return (
-    <tr>
-      <td>
-        <img
-          src={
-            item.thumbnail ||
-            (item.screenshots && item.screenshots[2]) ||
-            undefined
-          }
-          alt={item.title}
-        />
-      </td>
-      <td>{item.title}</td>
-      <td>{item.description}</td>
-      <td>{new Date(item.created_at).toLocaleString('fi-FI')}</td>
-      <td>{item.filesize}</td>
-      <td>{item.media_type}</td>
-      <td>{item.username}</td>
-      <td>
+    <article className="w-full p-2">
+      <img
+        src={
+          item.thumbnail ||
+          (item.screenshots && item.screenshots[2]) ||
+          undefined
+        }
+        alt={item.title}
+      />
+      <p>{item.title}</p>
+      <p>{item.description}</p>
+      <p>{new Date(item.created_at).toLocaleString('fi-FI')}</p>
+      <p>{item.filesize}</p>
+      <p>{item.media_type}</p>
+      <p>{item.username}</p>
+      <p>
         <Link to="/single" state={{item}}>
           Show
         </Link>
-      </td>
-    </tr>
+      </p>
+    </article>
   );
 };
 
