@@ -19,7 +19,7 @@ const Home = () => {
         <SingleView item={selectedItem} setSelectedItem={setSelectedItem} />
       )}
       <h2>My Media</h2>
-      <section className="flex flex-wrap justify-center">
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {mediaArray.map((item) => (
           <MediaRow
             item={item}
