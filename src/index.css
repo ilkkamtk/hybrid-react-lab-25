@@ -10,7 +10,7 @@
   }
 
   #root {
-    @apply m-auto w-7xl p-8;
+    @apply m-auto max-w-7xl p-8;
   }
 
   h1 {
