@@ -2,10 +2,7 @@ import {useForm} from '../hooks/formHooks';
 import {Credentials} from '../types/LocalTypes';
 import {useUserContext} from '../hooks/ContextHooks';
 
-const LoginForm = (props: {
-  toggleRegister: () => void;
-}) => {
-  const {toggleRegister} = props;
+const LoginForm = () => {
   const {handleLogin} = useUserContext();
   const initValues: Credentials = {
     username: '',
@@ -29,10 +26,14 @@ const LoginForm = (props: {
   return (
     <>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form
+        className="flex flex-col items-center justify-center"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex w-4/5 flex-col">
           <label htmlFor="loginusername">Username</label>
           <input
+            className="my-2.5 rounded-md border p-2.5"
             name="username"
             type="text"
             id="loginusername"
@@ -41,9 +42,10 @@ const LoginForm = (props: {
             // value={inputs.username}
           />
         </div>
-        <div>
+        <div className="flex w-4/5 flex-col">
           <label htmlFor="loginpassword">Password</label>
           <input
+            className="my-2.5 rounded-md border p-2.5"
             name="password"
             type="password"
             id="loginpassword"
@@ -52,8 +54,12 @@ const LoginForm = (props: {
             // value={inputs.password}
           />
         </div>
-        <button type="submit">Login</button>
-        <button onClick={toggleRegister}>or register?</button>
+        <button
+          className="my-2.5 block w-4/5 rounded-md bg-stone-500 p-2 text-center transition-all duration-500 ease-in-out hover:bg-stone-700"
+          type="submit"
+        >
+          Login
+        </button>
       </form>
     </>
   );

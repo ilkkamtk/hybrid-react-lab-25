@@ -11,10 +11,15 @@ const Login = () => {
 
   return (
     <>
-      {displayRegister ? <RegisterForm /> : <LoginForm toggleRegister={toggleRegister} />}
-      <button onClick={toggleRegister}>
-        or {displayRegister ? 'login' : 'register'}?
-      </button>
+      {displayRegister ? <RegisterForm /> : <LoginForm />}
+      <div className="flex flex-col items-center justify-center">
+        <button
+          className="my-2.5 block w-4/5 rounded-md bg-indigo-400 p-2 text-center transition-all duration-500 ease-in-out hover:bg-indigo-500"
+          onClick={toggleRegister}
+        >
+          or {displayRegister ? 'login' : 'register'}?
+        </button>
+      </div>
     </>
   );
 };

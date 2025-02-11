@@ -67,10 +67,14 @@ const Upload = () => {
   return (
     <>
       <h1>Upload</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form
+        className="flex flex-col items-center justify-center"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex w-4/5 flex-col">
           <label htmlFor="title">Title</label>
           <input
+            className="my-2.5 rounded-md border p-2.5"
             name="title"
             type="text"
             id="title"
@@ -78,9 +82,10 @@ const Upload = () => {
             value={inputs.title}
           />
         </div>
-        <div>
+        <div className="flex w-4/5 flex-col">
           <label htmlFor="description">Description</label>
           <textarea
+            className="my-2.5 rounded-md border p-2.5"
             name="description"
             rows={5}
             id="description"
@@ -88,9 +93,10 @@ const Upload = () => {
             value={inputs.description}
           ></textarea>
         </div>
-        <div>
+        <div className="flex w-4/5 flex-col">
           <label htmlFor="file">File</label>
           <input
+            className="my-2.5 rounded-md border file:mr-2.5 file:bg-stone-600 file:p-2.5"
             name="file"
             type="file"
             id="file"
@@ -100,16 +106,26 @@ const Upload = () => {
             ref={fileRef}
           />
         </div>
-        <img
-          src={
-            file
-              ? URL.createObjectURL(file)
-              : 'https://place-hold.it/200?text=Choose+image'
-          }
-          alt="preview"
-          width="200"
-        />
+        {file?.type.includes('video') ? (
+          <video
+            controls
+            className="radius-2 mx-2.5 my-0 h-64 w-96 object-cover"
+            src={file ? URL.createObjectURL(file) : ''}
+          ></video>
+        ) : (
+          <img
+            className="radius-2 mx-2.5 my-0 h-64 w-96 object-cover"
+            src={
+              file
+                ? URL.createObjectURL(file)
+                : 'https://place-hold.it/384?text=Choose+image+or+video'
+            }
+            alt="preview"
+            width="200"
+          />
+        )}
         <button
+          className="my-2.5 block w-4/5 rounded-md bg-stone-500 p-2 text-center transition-all duration-500 ease-in-out hover:bg-stone-700"
           type="submit"
           disabled={
             file && inputs.title.length > 3 && inputs.description.length > 0
@@ -119,7 +135,12 @@ const Upload = () => {
         >
           {uploading ? 'Uploading..' : 'Upload'}
         </button>
-        <button onClick={resetForm} >Reset</button>
+        <button
+          className="my-2.5 block w-4/5 rounded-md bg-amber-500 p-2 text-center transition-all duration-500 ease-in-out hover:bg-amber-700"
+          onClick={resetForm}
+        >
+          Reset
+        </button>
         <p>{uploadResult}</p>
       </form>
     </>
