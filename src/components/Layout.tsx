@@ -19,7 +19,7 @@ const Layout = () => {
           <ul className="m-0 flex list-none justify-end bg-stone-600 p-0">
             <li>
               <Link
-                className="block p-4 text-center transition-all duration-500 hover:bg-stone-700"
+                className="block p-4 text-center transition-all duration-500 ease-in-out hover:bg-stone-700"
                 to="/"
               >
                 Home
@@ -29,7 +29,7 @@ const Layout = () => {
               <>
                 <li>
                   <Link
-                    className="block p-4 text-center transition-all duration-500 hover:bg-stone-700"
+                    className="block p-4 text-center transition-all duration-500 ease-in-out hover:bg-stone-700"
                     to="/profile"
                   >
                     Profile
@@ -37,7 +37,7 @@ const Layout = () => {
                 </li>
                 <li>
                   <Link
-                    className="block p-4 text-center transition-all duration-500 hover:bg-stone-700"
+                    className="block p-4 text-center transition-all duration-500 ease-in-out hover:bg-stone-700"
                     to="/upload"
                   >
                     Upload
@@ -45,7 +45,7 @@ const Layout = () => {
                 </li>
                 <li>
                   <Link
-                    className="block p-4 text-center transition-all duration-500 hover:bg-stone-700"
+                    className="block p-4 text-center transition-all duration-500 ease-in-out hover:bg-stone-700"
                     to="/logout"
                   >
                     Logout
@@ -55,7 +55,7 @@ const Layout = () => {
             ) : (
               <li>
                 <Link
-                  className="block p-4 text-center transition-all duration-500 hover:bg-stone-700"
+                  className="block p-4 text-center transition-all duration-500 ease-in-out hover:bg-stone-700"
                   to="/login"
                 >
                   Login
