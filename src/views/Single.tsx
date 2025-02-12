@@ -25,6 +25,7 @@ const Single = () => {
         onClick={() => {
           navigate(-1);
         }}
+        className="block w-full bg-indigo-400 p-2 text-center transition-all duration-500 ease-in-out hover:bg-indigo-700"
       >
         go back
       </button>
