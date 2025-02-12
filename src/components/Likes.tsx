@@ -1,5 +1,5 @@
 import {Like, MediaItemWithOwner} from 'hybrid-types/DBTypes';
-import {useReducer} from 'react';
+import {useEffect, useReducer} from 'react';
 import {useLike} from '../hooks/apiHooks';
 
 type LikeState = {
@@ -31,12 +31,73 @@ const likeReducer = (state: LikeState, action: LikeAction): LikeState => {
 
 const Likes = ({item}: {item: MediaItemWithOwner}) => {
   const [likeState, likeDispatch] = useReducer(likeReducer, likeInitialState);
-  //const {postLike, deleteLike, getCountByMediaId, getUserLike} = useLike();
+  const {postLike, deleteLike, getCountByMediaId, getUserLike} = useLike();
+
+  // get user like
+  const getLikes = async () => {
+    const token = localStorage.getItem('token');
+    if (!item || !token) {
+      return;
+    }
+    try {
+      const userLike = await getUserLike(item.media_id, token);
+      //console.log('getLikes userLike', userLike);
+      likeDispatch({type: 'like', like: userLike});
+    } catch (e) {
+      likeDispatch({type: 'like', like: null});
+      console.error('get user like error', (e as Error).message);
+    }
+  };
+
+  // get like count
+  const getLikeCount = async () => {
+    // TODO: get like count and dispatch it to the state
+    try {
+      const countResponse = await getCountByMediaId(item.media_id);
+      likeDispatch({type: 'setLikeCount', count: countResponse.count});
+    } catch (error) {
+      console.error('get user like error', (error as Error).message);
+    }
+  };
+
+  useEffect(() => {
+    getLikes();
+    getLikeCount();
+  }, [item]);
+
+  const handleLike = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!item || !token) {
+        return;
+      }
+      // If user has liked the media, delete the like. Otherwise, post the like.
+      if (likeState.userLike) {
+        // delete the like and dispatch the new like count to the state. Dispatching is already done in the getLikes and getLikeCount functions.
+        await deleteLike(likeState.userLike.like_id, token);
+        // optionally use getLikes() & getLikeCount() here to update all likes from db
+        likeDispatch({type: 'like', like: null});
+        likeDispatch({type: 'setLikeCount', count: likeState.count - 1});
+      } else {
+        // post the like and dispatch the new like count to the state. Dispatching is already done in the getLikes and getLikeCount functions.
+        await postLike(item.media_id, token);
+        getLikes();
+        getLikeCount();
+      }
+    } catch (e) {
+      console.log('like error', (e as Error).message);
+    }
+  };
 
   return (
     <>
       <p>Likes: {likeState.count}</p>
-      <button onClick={() => {likeDispatch({type: 'like', like: null})}}>Unlike</button>
+      <button
+        className="block w-full bg-indigo-400 p-2 text-center transition-all duration-500 ease-in-out hover:bg-indigo-700"
+        onClick={handleLike}
+      >
+        {likeState.userLike ? 'Unlike' : 'Like'}
+      </button>
     </>
   );
 };

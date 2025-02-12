@@ -1,4 +1,5 @@
 import {
+  Like,
   MediaItem,
   MediaItemWithOwner,
   UserWithNoPassword,
@@ -217,7 +218,7 @@ const useLike = () => {
 
   const getCountByMediaId = async (media_id: number) => {
     // Send a GET request to /likes/count/:media_id to get the number of likes.
-    return await fetchData<MessageResponse>(
+    return await fetchData<{count: number}>(
       import.meta.env.VITE_MEDIA_API + '/likes/count/' + media_id,
     );
   };
@@ -230,7 +231,7 @@ const useLike = () => {
         Authorization: 'Bearer ' + token,
       },
     };
-    return await fetchData<MessageResponse>(
+    return await fetchData<Like>(
       import.meta.env.VITE_MEDIA_API + '/likes/bymedia/user/' + media_id,
       options,
     );
